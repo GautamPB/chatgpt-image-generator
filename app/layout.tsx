@@ -1,8 +1,9 @@
 import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import SessionProvider from '@/components/SessionProvider'
-import { authOptions } from './api/auth/[...nextauth]'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from 'next-auth/next'
+import Login from '@/components/Login'
 
 export const metadata = {
     title: 'ChatGPT Image Generator',
@@ -18,12 +19,17 @@ export default async function RootLayout({
 
     return (
         <html lang="en">
-            <body>
+            <body className="flex bg-[#343541]">
                 <SessionProvider session={session}>
-                    {/* Navbar */}
-                    <Navbar />
+                    {!session ? (
+                        <Login />
+                    ) : (
+                        <>
+                            <Navbar />
 
-                    {children}
+                            {children}
+                        </>
+                    )}
                 </SessionProvider>
             </body>
         </html>
