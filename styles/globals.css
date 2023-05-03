@@ -4,6 +4,6 @@
 
 @layer components {
     .feature {
-        @apply bg-gray-500/40 rounded-md p-2;
+        @apply bg-gray-500/40 rounded-md p-2 hover:bg-black/40 transition-colors cursor-pointer;
     }
 }

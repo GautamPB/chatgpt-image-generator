@@ -3,12 +3,22 @@
 import { useSession } from 'next-auth/react'
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { signOut } from 'next-auth/react'
+import { db } from '@/firebase'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const Navbar = () => {
     const { data: session } = useSession()
 
-    const handleCreateNewChat = () => {
-        console.log('create new chat')
+    const handleCreateNewChat = async () => {
+        const doc = await addDoc(
+            collection(db, 'users', session?.user?.email!, 'chats'),
+            {
+                userId: session?.user?.email!,
+                createdAt: serverTimestamp(),
+            }
+        )
+
+        console.log('created new chat')
     }
 
     return (
