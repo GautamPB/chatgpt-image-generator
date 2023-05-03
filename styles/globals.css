@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .feature {
+        @apply bg-gray-500/40 rounded-md p-2;
+    }
+}
