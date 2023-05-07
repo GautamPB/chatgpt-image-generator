@@ -43,7 +43,7 @@ export default function Home() {
                             Messages are stored in Firebase Firestore
                         </div>
                         <div className="feature">
-                            Makes use of a realtime database
+                            Generate links to different images
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ export default function Home() {
                             biased content
                         </div>
                         <div className="feature">
-                            Limited knowledge of world events after 2021
+                            Image links and chats expire after an hour
                         </div>
                     </div>
                 </div>
