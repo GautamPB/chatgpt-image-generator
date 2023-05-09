@@ -35,7 +35,7 @@ const ChatComponent = ({ chatId }: Props) => {
 
     return (
         <div
-            className={`chatRow ${activeChat && 'activeChatRow'}`}
+            className={`chatRow group ${activeChat && 'activeChatRow'}`}
             onClick={() => router.push(`/chat/${chatId}]`)}
         >
             <div className="flex items-center flex-1 space-x-4">
@@ -43,7 +43,10 @@ const ChatComponent = ({ chatId }: Props) => {
                 <p className="hidden md:block">New Chat</p>
             </div>
 
-            <div onClick={handleDeleteChat}>
+            <div
+                className="group-hover:block hidden"
+                onClick={handleDeleteChat}
+            >
                 <TrashIcon className="h-5 w-5 text-red-500" />
             </div>
         </div>
