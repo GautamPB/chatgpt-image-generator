@@ -36,7 +36,7 @@ const ChatComponent = ({ chatId }: Props) => {
     return (
         <div
             className={`chatRow group ${activeChat && 'activeChatRow'}`}
-            onClick={() => router.push(`/chat/${chatId}]`)}
+            onClick={() => router.push(`/chat/${chatId}`)}
         >
             <div className="flex items-center flex-1 space-x-4">
                 <ChatBubbleLeftIcon className="h-5 w-5" />

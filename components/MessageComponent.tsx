@@ -1,17 +1,68 @@
 'use client'
+
 import { useState } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import HTMLFormElement from 'react'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '@/firebase'
+import { useSession } from 'next-auth/react'
 
-const MessageComponent = () => {
+type Props = {
+    chatId: string
+}
+
+const MessageComponent = ({ chatId }: Props) => {
     const [prompt, setPrompt] = useState<string>('')
 
-    const handlePromptSubmit = (
+    const { data: session } = useSession()
+
+    const handlePromptSubmit = async (
         e: HTMLFormElement.FormEvent<HTMLFormElement>
     ) => {
         e.preventDefault()
-        console.log('Prompt: ', prompt)
+
+        if (!prompt) {
+            return
+        }
+
+        const input = prompt.trim()
+
         setPrompt('')
+
+        const doc = await addDoc(
+            collection(
+                db,
+                'users',
+                session?.user?.email!,
+                'chats',
+                chatId,
+                'messages'
+            ),
+            {
+                createdAt: serverTimestamp(),
+                prompt: input,
+                username: session?.user?.name,
+                photo: session?.user?.image,
+            }
+        )
+
+        await fetch('/api/askQuestion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                prompt: input,
+                chatId,
+                session,
+            }),
+        })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log('Error: ', err.message)
+            })
     }
 
     return (
@@ -27,8 +78,12 @@ const MessageComponent = () => {
                 placeholder="Enter a prompt here..."
             />
 
-            <button type="submit">
-                <PaperAirplaneIcon className="h-6 w-6 -rotate-45 text-white" />
+            <button
+                disabled={!prompt}
+                type="submit"
+                className="bg-[#12B48B] text-white py-2 disabled:bg-gray-100/40 transition-colors duration-300 disabled:cursor-not-allowed disabled:text-black px-4 rounded-lg"
+            >
+                <PaperAirplaneIcon className="h-6 w-6 -rotate-45" />
             </button>
         </form>
     )

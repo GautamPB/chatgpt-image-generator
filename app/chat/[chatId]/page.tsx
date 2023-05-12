@@ -1,4 +1,5 @@
 'use client'
+
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import MessageComponent from '@/components/MessageComponent'
@@ -20,7 +21,7 @@ const ChatPage = () => {
                 <h1>Sample Message</h1>
             </div>
 
-            <MessageComponent />
+            <MessageComponent chatId={chatId} />
         </div>
     )
 }
