@@ -18,5 +18,9 @@ export default async function handler(
 
     console.log(response)
 
-    res.status(200).json({ imageLink: response })
+    res.status(200).json({
+        imageLink: response
+            ? response
+            : 'ChatGPT was unable to find an answer for that',
+    })
 }

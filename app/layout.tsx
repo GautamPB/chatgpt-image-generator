@@ -4,6 +4,7 @@ import SessionProvider from '@/components/SessionProvider'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from 'next-auth/next'
 import Login from '@/components/Login'
+import ClientProvider from '@/components/ClientProvider'
 
 export const metadata = {
     title: 'ChatGPT Image Generator',
@@ -26,6 +27,8 @@ export default async function RootLayout({
                     ) : (
                         <>
                             <Navbar />
+
+                            <ClientProvider />
 
                             {children}
                         </>

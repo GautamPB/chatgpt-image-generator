@@ -6,6 +6,7 @@ import HTMLFormElement from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 type Props = {
     chatId: string
@@ -28,6 +29,8 @@ const MessageComponent = ({ chatId }: Props) => {
         const input = prompt.trim()
 
         setPrompt('')
+
+        const notification = toast.loading('ChatGPT is thinking...')
 
         const doc = await addDoc(
             collection(
@@ -57,8 +60,10 @@ const MessageComponent = ({ chatId }: Props) => {
                 session,
             }),
         })
-            .then((res) => {
-                console.log(res)
+            .then(() => {
+                toast.success('ChatGPT has responded', {
+                    id: notification,
+                })
             })
             .catch((err) => {
                 console.log('Error: ', err.message)
