@@ -32,7 +32,7 @@ const MessageComponent = ({ chatId }: Props) => {
 
         const notification = toast.loading('ChatGPT is thinking...')
 
-        const doc = await addDoc(
+        await addDoc(
             collection(
                 db,
                 'users',
