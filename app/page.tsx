@@ -7,7 +7,9 @@ import {
 export default function Home() {
     return (
         <main className="flex items-center flex-col lg:justify-center flex-1 p-8 overflow-y-scroll h-screen">
-            <h1 className="text-white font-bold text-3xl mb-10">ChatGPT</h1>
+            <h1 className="text-white font-bold text-3xl mb-10 text-center">
+                ChatGPT Image Generator
+            </h1>
 
             <div className="flex flex-col space-y-10 lg:space-y-0 lg:flex-row items-center lg:items-start justify-center space-x-4">
                 <div className="text-white flex flex-col space-y-4 text-center">

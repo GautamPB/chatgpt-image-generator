@@ -32,6 +32,16 @@ const MessageComponent = ({ chatId }: Props) => {
 
         const notification = toast.loading('ChatGPT is thinking...')
 
+        const message: Message = {
+            text: input,
+            createdAt: serverTimestamp(),
+            user: {
+                _id: session?.user?.email!,
+                name: session?.user?.name!,
+                avatar: session?.user?.image!,
+            },
+        }
+
         await addDoc(
             collection(
                 db,
@@ -41,12 +51,7 @@ const MessageComponent = ({ chatId }: Props) => {
                 chatId,
                 'messages'
             ),
-            {
-                createdAt: serverTimestamp(),
-                prompt: input,
-                username: session?.user?.name,
-                photo: session?.user?.image,
-            }
+            message
         )
 
         await fetch('/api/askQuestion', {
