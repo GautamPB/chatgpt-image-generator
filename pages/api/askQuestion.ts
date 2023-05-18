@@ -14,6 +14,7 @@ export default async function handler(
         return
     } else if (!chatId) {
         res.status(400).json({ answer: 'Please provide a ChatID' })
+        return
     }
 
     const response = await query(prompt)
@@ -36,11 +37,7 @@ export default async function handler(
         .collection('messages')
         .add(message)
 
-    console.log(response)
-
     res.status(200).json({
-        imageLink: response
-            ? response
-            : 'ChatGPT was unable to find an answer for that',
+        imageLink: response,
     })
 }
